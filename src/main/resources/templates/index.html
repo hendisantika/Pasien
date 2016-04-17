@@ -1,0 +1,144 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout" ng-app="showcase">
+    <head>
+        <title>Pasien Registration</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+
+                    <!-- Save Alert Messages -->
+                    <div th:if="${savePasien eq 'unsuccess'}">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <strong>Error!</strong> Pasien Data Not Saved.
+                        </div>
+                    </div>
+                    <div th:if="${savePasien eq 'success'}">
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <strong>Success!</strong> Pasien Data Saved Successfully.
+                        </div>
+                    </div>
+
+                    <!-- Deletion Alert Messages -->
+                    <div th:if="${deletion eq 'unsuccess'}">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <strong>Error!</strong> Pasien Data Not Deleted.
+                        </div>
+                    </div>
+                    <div th:if="${deletion eq 'success'}">
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <strong>Success!</strong> Pasien Data Deleted Successfully.
+                        </div>
+                    </div>
+
+                    <!-- Edit Alert Message -->
+                    <div th:if="${status eq 'notfound'}">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <strong>Error!</strong> Invalid Pasien.
+                        </div>
+                    </div>
+                    <div th:if="${edit eq 'unsuccess'}">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <strong>Error!</strong> Pasien Data Not Edited.
+                        </div>
+                    </div>
+                    <div th:if="${edit eq 'success'}">
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <strong>Success!</strong> Pasien Data Edited Successfully.
+                        </div>
+                    </div>
+
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Add Pasien</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form th:object="${pasien}" th:action="@{/pasien/save}" action="#" method="post">
+                                <!--<input type="text" th:field="*{pasienId}" class="form-control" placeholder="Pasien ID" required/>-->
+                                <div style="clear:both; display:block;height:10px;"></div>
+                                <input type="text" th:field="*{name}" class="form-control" placeholder="Pasien Name" required/>
+                                <div style="clear:both; display:block;height:10px;"></div>
+                                <input type="text" th:field="*{telpon}" class="form-control" placeholder="Pasien Nomor Telpon" required/>
+                                <div style="clear:both; display:block;height:10px;"></div>
+                                <input type="text" th:field="*{rtrw}" class="form-control" placeholder="Pasien RT / RW" required/>
+                                <div style="clear:both; display:block;height:10px;"></div>
+                                <input type="text" th:field="*{kelurahan}" class="form-control" placeholder="Pasien Kelurahan" required/>
+                                <div style="clear:both; display:block;height:10px;"></div>
+                                <input type="text" th:field="*{kecamatan}" class="form-control" placeholder="Pasien Kecamatan" required/>
+                                <div style="clear:both; display:block;height:10px;"></div>
+                                <input type="text" th:field="*{kota}" class="form-control" placeholder="Pasien Kota" required/>
+                                <div style="clear:both; display:block;height:10px;"></div>
+                                <input type="text" th:field="*{tanggalLahir}" class="form-control" placeholder="Pasien Tanggal Lahir"/>
+                                <div style="clear:both; display:block;height:10px;"></div>
+                                <input type="text" th:field="*{kelamin}" class="form-control" placeholder="Pasien Kelamin" required/>
+                                <div style="clear:both; display:block;height:10px;"></div>
+                                <div style="clear:both; display:block;height:10px;"></div>
+                                <input type="submit" class="btn btn-warning btn-lg pull-right" value="Save">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row"  style="margin-bottom:50px;">
+                <div class="col-md-11 col-md-offset-1">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">All Pasiens</h3>
+                        </div>
+                        <div class="panel-body">
+                            <table datatable="" class="table table-bordered row-border hover">
+                                <thead>
+                                    <tr class="btn-warning">
+                                        <th>Pasien No</th>
+                                        <th>Pasien Name</th>
+                                        <th>Pasien Tanggal Lahir</th>
+                                        <th>Pasien Telpon</th>
+                                        <th>Pasien RT / RW</th>
+                                        <th>Pasien Kelurahan</th>
+                                        <th>Pasien Kecamatan</th>
+                                        <th>Pasien Kota</th>
+                                        <th>Pasien Kelamin</th>
+                                        <th>Operation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:if="${#lists.isEmpty(allPasiens)}" class="btn-success">
+                                        <td colspan="10" align="center">No Pasien Registered Yet!!!</td> 
+                                    </tr>
+                                    <tr th:each="pasien : ${allPasiens}">
+                                        <td th:text="${pasien.pasienId}"></td>
+                                        <td th:text="${pasien.name}"></td>
+                                        <td th:text="${pasien.tanggalLahir}">2015-10-10</td>
+                                        <td th:text="${pasien.telpon}"></td>
+                                        <td th:text="${pasien.rtrw}"></td>
+                                        <td th:text="${pasien.kelurahan}"></td>
+                                        <td th:text="${pasien.kecamatan}"></td>
+                                        <td th:text="${pasien.kota}"></td>
+                                        <td th:text="${pasien.kelamin}"></td>
+                                        <td align="center">
+                                            <a th:href="@{/pasien/edit/{id}(id=${pasien.pasienId})}"><span class="glyphicon glyphicon-edit"></span></a> &nbsp; &nbsp;
+                                            <a th:href="@{/pasien/delete/{id}(id=${pasien.pasienId})}"><span class="glyphicon glyphicon-trash"></span></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!--        <script type="text/javascript">
+            // When the document is ready
+            $(document).ready(function () {
+                $('#tgl').datepicker({
+                    format: 'dd/MM/yyyy'
+                });
+            var app = angular.module('showcase', ['datatables']);
+            });
+        </script>-->
+    </body>
+</html>
