@@ -1,0 +1,122 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout" ng-app="showcase">
+    <head>
+        <title>Input Alamat</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+
+                    <!-- Save Alert Messages -->
+                    <div th:if="${saveAlamat eq 'unsuccess'}">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <strong>Error!</strong> Alamat Data Not Saved.
+                        </div>
+                    </div>
+                    <div th:if="${saveAlamat eq 'success'}">
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <strong>Success!</strong> Alamat Data Saved Successfully.
+                        </div>
+                    </div>
+
+                    <!-- Deletion Alert Messages -->
+                    <div th:if="${deletion eq 'unsuccess'}">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <strong>Error!</strong> Alamat Data Not Deleted.
+                        </div>
+                    </div>
+                    <div th:if="${deletion eq 'success'}">
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <strong>Success!</strong> Alamat Data Deleted Successfully.
+                        </div>
+                    </div>
+
+                    <!-- Edit Alert Message -->
+                    <div th:if="${status eq 'notfound'}">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <strong>Error!</strong> Invalid Alamat.
+                        </div>
+                    </div>
+                    <div th:if="${edit eq 'unsuccess'}">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <strong>Error!</strong> Alamat Data Not Edited.
+                        </div>
+                    </div>
+                    <div th:if="${edit eq 'success'}">
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <strong>Success!</strong> Alamat Data Edited Successfully.
+                        </div>
+                    </div>
+
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Add Alamat</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form th:object="${alamat}" th:action="@{/alamat/save}" action="#" method="post">
+                                <div style="clear:both; display:block;height:10px;"></div>
+                                <input type="text" th:field="*{kelurahan}" class="form-control" placeholder="Alamat Kelurahan" required/>
+                                <div style="clear:both; display:block;height:10px;"></div>
+                                <input type="text" th:field="*{kecamatan}" class="form-control" placeholder="Alamat Kecamatan" required/>
+                                <div style="clear:both; display:block;height:10px;"></div>
+                                <input type="text" th:field="*{kota}" class="form-control" placeholder="Alamat Kota" required/>
+                                <div style="clear:both; display:block;height:10px;"></div>
+                                <input type="submit" class="btn btn-warning btn-lg pull-right" value="Save">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row"  style="margin-bottom:50px;">
+                <div class="col-md-11 col-md-offset-1">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">All Alamats</h3>
+                        </div>
+                        <div class="panel-body">
+                            <table datatable="" class="table table-bordered row-border hover">
+                                <thead>
+                                    <tr class="btn-warning">
+                                        <th>Alamat ID</th>
+                                        <th>Alamat Kelurahan</th>
+                                        <th>Alamat Kecamatan</th>
+                                        <th>Alamat Kota</th>
+                                        <th>Operation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:if="${#lists.isEmpty(allAlamats)}" class="btn-success">
+                                        <td colspan="5" align="center">No Alamat Registered Yet!!!</td> 
+                                    </tr>
+                                    <tr th:each="alamat : ${allAlamats}">
+                                        <td th:text="${alamat.Id}"></td>
+                                        <td th:text="${alamat.kelurahan}"></td>
+                                        <td th:text="${alamat.kecamatan}"></td>
+                                        <td th:text="${alamat.kota}"></td>
+                                        <td align="center">
+                                            <a th:href="@{/alamat/edit/{id}(id=${alamat.Id})}"><span class="glyphicon glyphicon-edit"></span></a> &nbsp; &nbsp;
+                                            <a th:href="@{/alamat/delete/{id}(id=${alamat.Id})}"><span class="glyphicon glyphicon-trash"></span></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--        <script type="text/javascript">
+                    // When the document is ready
+                    $(document).ready(function () {
+                        $('#tgl').datepicker({
+                            format: 'dd/MM/yyyy'
+                        });
+                    var app = angular.module('showcase', ['datatables']);
+                    });
+                </script>-->
+    </body>
+</html>

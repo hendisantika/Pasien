@@ -5,8 +5,7 @@
     </head>
     <body>
         <div layout:fragment="content">
-
-            <div class="row">
+                <div class="row">
                 <div class="col-md-offset-3 col-md-6">
 
                     <!-- Save Alert Messages -->
@@ -64,18 +63,42 @@
                                 <div style="clear:both; display:block;height:10px;"></div>
                                 <input type="text" th:field="*{rtrw}" class="form-control" placeholder="Pasien RT / RW" required/>
                                 <div style="clear:both; display:block;height:10px;"></div>
-                                <input type="text" th:field="*{kelurahan}" class="form-control" placeholder="Pasien Kelurahan" required/>
+                                <!--                                <input type="text" th:field="*{kelurahan}" class="form-control" placeholder="Pasien Kelurahan" required/>
+                                                                <div style="clear:both; display:block;height:10px;"></div>
+                                                                <input type="text" th:field="*{kecamatan}" class="form-control" placeholder="Pasien Kecamatan" required/>
+                                                                <div style="clear:both; display:block;height:10px;"></div>
+                                                                <input type="text" th:field="*{kota}" class="form-control" placeholder="Pasien Kota" required/>-->
+                                <select th:field="*{kelurahan}" class="form-control" placeholder="Pilih Kelurahan">
+                                    <option value="NONE">---- Select Kelurahan ----</option>
+                                    <option th:each="kec : ${allAlamats}"
+                                            th:value="${kec.id}"
+                                            th:text="${kec.kelurahan}">Cangkuang</option>
+                                </select>
                                 <div style="clear:both; display:block;height:10px;"></div>
-                                <input type="text" th:field="*{kecamatan}" class="form-control" placeholder="Pasien Kecamatan" required/>
+                                <!--<input type="text" th:field="*{kecamatan}" class="form-control" placeholder="Pasien Kecamatan" required/>-->
                                 <div style="clear:both; display:block;height:10px;"></div>
-                                <input type="text" th:field="*{kota}" class="form-control" placeholder="Pasien Kota" required/>
+                                <select th:field="*{kecamatan}" class="form-control" placeholder="Pilih Kecamatan">
+                                    <option value="NONE">---- Select Kecamatan ----</option>
+                                    <option th:each="kec : ${allAlamats}"
+                                            th:value="${kec.id}"
+                                            th:text="${kec.kecamatan}">Cangkuang</option>
+                                </select>
+                                <!--<input type="text" th:field="*{kota}" class="form-control" placeholder="Pasien Kota" required/>-->
+
                                 <div style="clear:both; display:block;height:10px;"></div>
-                                <input type="text" th:field="*{tanggalLahir}" class="form-control" placeholder="Pasien Tanggal Lahir"/>
+                                <select th:field="*{kota}" class="form-control" placeholder="Pilih Kota">
+                                    <option value="NONE">---- Select Kota ----</option>
+                                    <option th:each="kec : ${allAlamats}"
+                                            th:value="${kec.id}"
+                                            th:text="${kec.kota}">Cangkuang</option>
+                                </select>
+                                <div style="clear:both; display:block;height:10px;"></div>
+                                <input type="text" th:field="*{tanggalLahir}" class="form-control" placeholder="Pasien Tanggal Lahir" required=""/>
                                 <div style="clear:both; display:block;height:10px;"></div>
                                 <input type="text" th:field="*{kelamin}" class="form-control" placeholder="Pasien Kelamin" required/>
                                 <div style="clear:both; display:block;height:10px;"></div>
                                 <div style="clear:both; display:block;height:10px;"></div>
-                                <input type="submit" class="btn btn-warning btn-lg pull-right" value="Save">
+                                <input type="submit" class="btn btn-warning btn-lg pull-right" value="Save"/>
                             </form>
                         </div>
                     </div>
@@ -131,14 +154,14 @@
             </div>
         </div>
 
-<!--        <script type="text/javascript">
-            // When the document is ready
-            $(document).ready(function () {
-                $('#tgl').datepicker({
-                    format: 'dd/MM/yyyy'
-                });
-            var app = angular.module('showcase', ['datatables']);
-            });
-        </script>-->
+        <!--        <script type="text/javascript">
+                    // When the document is ready
+                    $(document).ready(function () {
+                        $('#tgl').datepicker({
+                            format: 'dd/MM/yyyy'
+                        });
+                    var app = angular.module('showcase', ['datatables']);
+                    });
+                </script>-->
     </body>
 </html>
