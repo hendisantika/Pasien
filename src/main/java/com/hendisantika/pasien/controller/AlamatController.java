@@ -6,10 +6,7 @@
 package com.hendisantika.pasien.controller;
 
 import com.hendisantika.pasien.domain.Alamat;
-import com.hendisantika.pasien.domain.Pasien;
 import com.hendisantika.pasien.service.AlamatService;
-import com.hendisantika.pasien.service.PasienService;
-import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -27,66 +24,62 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @Controller
 @ComponentScan
-public class PasienController {
-
+public class AlamatController {
     @Autowired
-    PasienService pasienService;
+    private AlamatService alamatService;
     
-    @Autowired
-    AlamatService alamatService;
-
-    @RequestMapping(value = {"/", "/savepage"}, method = RequestMethod.GET)
-    public String savePage(Model model) {
-        model.addAttribute("pasien", new Pasien());
-        model.addAttribute("allPasiens", (ArrayList<Pasien>) pasienService.getAllPasiens());
+    @RequestMapping(value = {"/alamat", "/savealamat"}, method = RequestMethod.GET)
+    public String savePage(Model model){
+        model.addAttribute("alamat", new Alamat());
         model.addAttribute("allAlamats", (Collection<Alamat>) alamatService.getAllAlamats());
-        return "index";
+        return "alamat";
     }
-
-    @RequestMapping(value = {"/pasien/save"}, method = RequestMethod.POST)
-    public String savePasien(@ModelAttribute("pasien") Pasien pasien,
+    
+    @RequestMapping(value = {"/alamat/save"}, method = RequestMethod.POST)
+    public String saveAlamat(@ModelAttribute("alamat") Alamat alamat,
             final RedirectAttributes redirectAttributes) {
 
-        if (pasienService.savePasien(pasien) != null) {
-            redirectAttributes.addFlashAttribute("savePasien", "success");
+        if (alamatService.saveAlamat(alamat) != null) {
+            redirectAttributes.addFlashAttribute("saveAlamat", "success");
         } else {
-            redirectAttributes.addFlashAttribute("savePasien", "unsuccess");
+            redirectAttributes.addFlashAttribute("saveAlamat", "unsuccess");
         }
 
-        return "redirect:/savepage";
+        return "redirect:/savealamat";
     }
-
-    @RequestMapping(value = "/pasien/{operation}/{pasienNo}", method = RequestMethod.GET)
-    public String editRemovePasien(@PathVariable("operation") String operation,
-            @PathVariable("pasienNo") String pasienId, final RedirectAttributes redirectAttributes,
+    
+    @RequestMapping(value = "/alamat/{operation}/{Id}", method = RequestMethod.GET)
+    public String editRemoveAlamat(@PathVariable("operation") String operation,
+            @PathVariable("Id") Integer Id, final RedirectAttributes redirectAttributes,
             Model model) {
         if (operation.equals("delete")) {
-            if (pasienService.deletePasien(pasienId)) {
+            if (alamatService.deleteAlamat(Id)) {
                 redirectAttributes.addFlashAttribute("deletion", "success");
             } else {
                 redirectAttributes.addFlashAttribute("deletion", "unsuccess");
             }
         } else if (operation.equals("edit")) {
-            Pasien editPasien = pasienService.findPasien(pasienId);
-            if (editPasien != null) {
-                model.addAttribute("editPasien", editPasien);
-                return "editPage";
+            Alamat editAlamat = alamatService.findAlamat(Id);
+            if (editAlamat != null) {
+                model.addAttribute("editAlamat", editAlamat);
+                return "editAlamat";
             } else {
                 redirectAttributes.addFlashAttribute("status", "notfound");
             }
         }
 
-        return "redirect:/savepage";
+        return "redirect:/savealamat";
     }
 
-    @RequestMapping(value = "/pasien/update", method = RequestMethod.POST)
-    public String updatePasien(@ModelAttribute("editPasien") Pasien editPasien,
+    @RequestMapping(value = "/alamat/update", method = RequestMethod.POST)
+    public String updateAlamat(@ModelAttribute("editAlamat") Alamat editAlamat,
             final RedirectAttributes redirectAttributes) {
-        if (pasienService.editPasien(editPasien) != null) {
+        if (alamatService.editAlamat(editAlamat) != null) {
             redirectAttributes.addFlashAttribute("edit", "success");
         } else {
             redirectAttributes.addFlashAttribute("edit", "unsuccess");
         }
-        return "redirect:/savepage";
+        return "redirect:/savealamat";
     }
+
 }

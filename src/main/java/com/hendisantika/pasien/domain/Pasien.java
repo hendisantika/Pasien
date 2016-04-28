@@ -5,7 +5,6 @@
  */
 package com.hendisantika.pasien.domain;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,11 +17,14 @@ import org.hibernate.annotations.GenericGenerator;
  * @author hendi.santika
  */
 @Entity
-@Table(name = "pasien2")
+@Table(name = "pasien")
 public class Pasien {
     @Id
-    @GenericGenerator(name = "sequence_pasienId", strategy = "com.hendisantika.pasien.domain.PasienIdGenerator")
-    @GeneratedValue(generator = "sequence_pasienId")
+//    @GenericGenerator(name = "sequence_pasienId", 
+//            strategy = "com.hendisantika.pasien.domain.PasienIdGenerator")
+//    @GeneratedValue(generator = "sequence_pasienId")
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "pasienId")
     private String pasienId;
 

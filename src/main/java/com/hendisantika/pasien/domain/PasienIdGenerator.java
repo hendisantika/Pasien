@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.id.IdentifierGenerator;
@@ -23,8 +24,8 @@ public class PasienIdGenerator implements IdentifierGenerator {
     public Serializable generate(SessionImplementor session, Object object)
             throws HibernateException {
 
-//        String prefix = "PAS-00";
-        String prefix = "1500";
+        String prefix = "PAS-";
+//        String prefix = "1500";
         Connection connection = session.connection();
         try {
 
@@ -33,18 +34,18 @@ public class PasienIdGenerator implements IdentifierGenerator {
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                int id = rs.getInt("value");
-//                String id = rs.getString("value");
+                int id = rs.getInt("value") + 1;
+//                String id = rs.getString("value") + 1;
                 String code = prefix + new Integer(id);
 //                String code = prefix + id;
+
+//                String code = prefix + StringUtils.leftPad("" + id, 3, '0');
                 System.out.println("Generated pasienId: " + code);
                 return code;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
-
 }
