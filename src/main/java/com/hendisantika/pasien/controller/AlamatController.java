@@ -7,7 +7,6 @@ package com.hendisantika.pasien.controller;
 
 import com.hendisantika.pasien.domain.Alamat;
 import com.hendisantika.pasien.service.AlamatService;
-import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -31,7 +30,7 @@ public class AlamatController {
     @RequestMapping(value = {"/alamat", "/savealamat"}, method = RequestMethod.GET)
     public String savePage(Model model){
         model.addAttribute("alamat", new Alamat());
-        model.addAttribute("allAlamats", (Collection<Alamat>) alamatService.getAllAlamats());
+        model.addAttribute("allAlamats", alamatService.getAllAlamats());
         return "alamat";
     }
     

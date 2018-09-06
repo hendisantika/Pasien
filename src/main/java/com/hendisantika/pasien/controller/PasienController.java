@@ -5,12 +5,9 @@
  */
 package com.hendisantika.pasien.controller;
 
-import com.hendisantika.pasien.domain.Alamat;
 import com.hendisantika.pasien.domain.Pasien;
 import com.hendisantika.pasien.service.AlamatService;
 import com.hendisantika.pasien.service.PasienService;
-import java.util.ArrayList;
-import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -38,8 +35,8 @@ public class PasienController {
     @RequestMapping(value = {"/", "/savepage"}, method = RequestMethod.GET)
     public String savePage(Model model) {
         model.addAttribute("pasien", new Pasien());
-        model.addAttribute("allPasiens", (ArrayList<Pasien>) pasienService.getAllPasiens());
-        model.addAttribute("allAlamats", (Collection<Alamat>) alamatService.getAllAlamats());
+        model.addAttribute("allPasiens", pasienService.getAllPasiens());
+        model.addAttribute("allAlamats", alamatService.getAllAlamats());
         return "index";
     }
 
