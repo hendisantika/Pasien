@@ -6,7 +6,9 @@
 package com.hendisantika.pasien.service;
 
 import com.hendisantika.pasien.domain.Pasien;
+
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  *
@@ -14,14 +16,14 @@ import java.util.Collection;
  */
 public interface PasienService {
 
-    public Pasien savePasien(Pasien pasien);
+    Pasien savePasien(Pasien pasien);
 
-    public Boolean deletePasien(String pasienId);
+    Boolean deletePasien(String pasienId);
 
-    public Pasien editPasien(Pasien pasien);
+    Pasien editPasien(Pasien pasien);
 
-    public Pasien findPasien(String pasienId);
+    Optional<Pasien> findPasien(String pasienId);
 
-    public Collection<Pasien> getAllPasiens();
+    Collection<Pasien> getAllPasiens();
 
 }

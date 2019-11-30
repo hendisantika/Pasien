@@ -1,13 +1,13 @@
 package com.hendisantika.pasien.service;
 
-import com.hendisantika.pasien.repositories.PasienRepository;
 import com.hendisantika.pasien.domain.Pasien;
-import java.util.Collection;
-
-import javax.transaction.Transactional;
-
+import com.hendisantika.pasien.repositories.PasienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.Collection;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,9 +24,9 @@ public class PasienServiceImplementation implements PasienService {
     @Override
     public Boolean deletePasien(String pasienId) {
         // TODO Auto-generated method stub
-        Pasien temp = pasienRepository.findOne(pasienId);
-        if (temp != null) {
-            pasienRepository.delete(temp);
+        Optional<Pasien> temp = pasienRepository.findById(pasienId);
+        if (!temp.isPresent()) {
+            pasienRepository.delete(temp.get());
             return true;
         }
         return false;
@@ -38,8 +38,8 @@ public class PasienServiceImplementation implements PasienService {
     }
 
     @Override
-    public Pasien findPasien(String pasienId) {
-        return this.pasienRepository.findOne(pasienId);
+    public Optional<Pasien> findPasien(String pasienId) {
+        return this.pasienRepository.findById(pasienId);
     }
 
     @Override

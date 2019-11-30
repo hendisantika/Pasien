@@ -5,29 +5,27 @@
  */
 package com.hendisantika.pasien.dao;
 
-import com.hendisantika.pasien.PasienApplication;
 import com.hendisantika.pasien.domain.Alamat;
 import com.hendisantika.pasien.repositories.AlamatRepository;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.sql.DataSource;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
  * @author hendi.santika
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = PasienApplication.class)
 @Sql(
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD,
         scripts = "/data/alamat.sql"

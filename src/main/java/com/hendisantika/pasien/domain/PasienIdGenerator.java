@@ -5,21 +5,20 @@
  */
 package com.hendisantika.pasien.domain;
 
+import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.id.IdentifierGenerator;
+
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.apache.commons.lang3.StringUtils;
-import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
-import org.hibernate.id.IdentifierGenerator;
 
 /**
- *
  * @author hendi.santika
  */
-public class PasienIdGenerator implements IdentifierGenerator {
+public abstract class PasienIdGenerator implements IdentifierGenerator {
 
     public Serializable generate(SessionImplementor session, Object object)
             throws HibernateException {

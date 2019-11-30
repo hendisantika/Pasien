@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Optional;
+
 /**
- *
  * @author hendi.santika
  */
 @Controller
@@ -58,8 +59,8 @@ public class AlamatController {
                 redirectAttributes.addFlashAttribute("deletion", "unsuccess");
             }
         } else if (operation.equals("edit")) {
-            Alamat editAlamat = alamatService.findAlamat(Id);
-            if (editAlamat != null) {
+            Optional<Alamat> editAlamat = alamatService.findAlamat(Id);
+            if (!editAlamat.isPresent()) {
                 model.addAttribute("editAlamat", editAlamat);
                 return "editAlamat";
             } else {

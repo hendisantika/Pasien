@@ -6,23 +6,25 @@
 package com.hendisantika.pasien.service;
 
 import com.hendisantika.pasien.domain.Alamat;
+
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  *
  * @author hendi.santika
  */
 public interface AlamatService {
-    
-    public Alamat saveAlamat(Alamat alamat);
-    
-    public Boolean deleteAlamat(Integer alamatId);
-    
-    public Alamat editAlamat(Alamat alamat);
-    
-    public Alamat findAlamat(Integer alamatId);
-    
-    public Collection<Alamat> getAllAlamats();
+
+    Alamat saveAlamat(Alamat alamat);
+
+    Boolean deleteAlamat(Integer alamatId);
+
+    Alamat editAlamat(Alamat alamat);
+
+    Optional<Alamat> findAlamat(Integer alamatId);
+
+    Collection<Alamat> getAllAlamats();
     
     
 }

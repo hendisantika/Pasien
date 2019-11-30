@@ -7,10 +7,12 @@ package com.hendisantika.pasien.service;
 
 import com.hendisantika.pasien.domain.Alamat;
 import com.hendisantika.pasien.repositories.AlamatRepository;
-import java.util.Collection;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.Collection;
+import java.util.Optional;
 
 /**
  *
@@ -29,9 +31,9 @@ public class AlamatImpl implements AlamatService{
 
     @Override
     public Boolean deleteAlamat(Integer alamatId) {
-        Alamat temp = alamatRepository.findOne(alamatId);
-        if(temp != null){
-            alamatRepository.delete(temp);
+        Optional<Alamat> temp = alamatRepository.findById(alamatId);
+        if (!temp.isPresent()) {
+            alamatRepository.delete(temp.get());
             return true;
         }
         return false;
@@ -43,8 +45,8 @@ public class AlamatImpl implements AlamatService{
     }
 
     @Override
-    public Alamat findAlamat(Integer alamatId) {
-        return this.alamatRepository.findOne(alamatId);
+    public Optional<Alamat> findAlamat(Integer alamatId) {
+        return this.alamatRepository.findById(alamatId);
     }
 
     @Override

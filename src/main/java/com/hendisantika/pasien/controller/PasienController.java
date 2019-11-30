@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Optional;
+
 /**
- *
  * @author hendi.santika
  */
 @Controller
@@ -64,8 +65,8 @@ public class PasienController {
                 redirectAttributes.addFlashAttribute("deletion", "unsuccess");
             }
         } else if (operation.equals("edit")) {
-            Pasien editPasien = pasienService.findPasien(pasienId);
-            if (editPasien != null) {
+            Optional<Pasien> editPasien = pasienService.findPasien(pasienId);
+            if (!editPasien.isPresent()) {
                 model.addAttribute("editPasien", editPasien);
                 return "editPage";
             } else {
