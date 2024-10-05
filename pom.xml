@@ -92,7 +92,7 @@
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>jsdom</artifactId>
-            <version>13.1.0</version>
+            <version>24.1.1</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
