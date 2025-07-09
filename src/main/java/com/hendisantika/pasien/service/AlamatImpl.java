@@ -7,10 +7,10 @@ package com.hendisantika.pasien.service;
 
 import com.hendisantika.pasien.domain.Alamat;
 import com.hendisantika.pasien.repositories.AlamatRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -23,7 +23,7 @@ public class AlamatImpl implements AlamatService{
 
     @Autowired
     private AlamatRepository alamatRepository;
-    
+
     @Override
     public Alamat saveAlamat(Alamat alamat) {
         return alamatRepository.save(alamat);
@@ -54,6 +54,6 @@ public class AlamatImpl implements AlamatService{
         Iterable<Alamat> itr = alamatRepository.findAll();
         return (Collection<Alamat>) itr;
     }
-    
-    
+
+
 }

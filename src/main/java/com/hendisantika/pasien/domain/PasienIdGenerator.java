@@ -6,7 +6,7 @@
 package com.hendisantika.pasien.domain;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
 import java.io.Serializable;
@@ -20,22 +20,22 @@ import java.sql.SQLException;
  */
 public abstract class PasienIdGenerator implements IdentifierGenerator {
 
-    public Serializable generate(SessionImplementor session, Object object)
+    @Override
+    public Serializable generate(SharedSessionContractImplementor session, Object object)
             throws HibernateException {
 
         String prefix = "PAS-";
 //        String prefix = "1500";
-        Connection connection = session.connection();
-        try {
+        try (Connection connection = session.getJdbcConnectionAccess().obtainConnection()) {
 
             PreparedStatement ps = connection
-                    .prepareStatement("SELECT MAX(pasien_id) as value from db_pasien.pasien2");
+                    .prepareStatement("SELECT MAX(pasien_id) AS VALUE FROM db_pasien.pasien");
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 int id = rs.getInt("value") + 1;
 //                String id = rs.getString("value") + 1;
-                String code = prefix + new Integer(id);
+                String code = prefix + Integer.valueOf(id);
 //                String code = prefix + id;
 
 //                String code = prefix + StringUtils.leftPad("" + id, 3, '0');
