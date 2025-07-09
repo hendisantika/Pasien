@@ -1,0 +1,13 @@
+services:
+  db:
+    image: mysql:9.3.0
+    container_name: mysql910
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_DATABASE=pasien
+      - MYSQL_ROOT_PASSWORD=53cret
+      - MYSQL_USER=yu71
+      - MYSQL_USER_PASSWORD=53cret
+    volumes:
+      - ./mysql910:/var/lib/mysql
